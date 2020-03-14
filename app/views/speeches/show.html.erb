@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <audio src="<%= rails_blob_path(@speech.speech) %>" controls>
+  </audio>
+</p>
+
+<p>
   <strong>Term:</strong>
   <%= @speech.term %>
 </p>
