@@ -1,0 +1,18 @@
+%p#notice= notice
+%p
+  %audio{:controls => "", :src => "#{rails_blob_path(@speech.speech)}"}
+%p
+  %strong Term:
+  = @speech.term
+%p
+  %strong Definition:
+  = @speech.definition
+%p
+  %strong Voice:
+  = @speech.voice
+%p
+  %strong Status:
+  = @speech.status
+= link_to 'Edit', edit_speech_path(@speech)
+|
+= link_to 'Back', speeches_path
