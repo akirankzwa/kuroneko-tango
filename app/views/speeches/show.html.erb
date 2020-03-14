@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Term:</strong>
+  <%= @speech.term %>
+</p>
+
+<p>
+  <strong>Definition:</strong>
+  <%= @speech.definition %>
+</p>
+
+<p>
+  <strong>Voice:</strong>
+  <%= @speech.voice %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @speech.status %>
+</p>
+
+<%= link_to 'Edit', edit_speech_path(@speech) %> |
+<%= link_to 'Back', speeches_path %>
