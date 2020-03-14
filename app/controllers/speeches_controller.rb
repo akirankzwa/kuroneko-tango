@@ -69,6 +69,6 @@ class SpeechesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def speech_params
-      params.require(:speech).permit(:term, :definition, :voice, :status)
+      params.require(:speech).permit(:term, :definition, :voice, :status, :speech)
     end
 end
