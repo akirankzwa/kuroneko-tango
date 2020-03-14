@@ -6,6 +6,7 @@
       %th Term
       %th Definition
       %th Status
+      %th speech
       %th{:colspan => "3"}
   %tbody
     - @speeches.each do |speech|
@@ -13,6 +14,9 @@
         %td= speech.term
         %td= speech.definition
         %td= speech.status
+        %td
+          %audio{controls: "", src: "#{rails_blob_path(speech.speech)}"}
+
         %td= link_to 'Show', speech
         %td= link_to 'Edit', edit_speech_path(speech)
         %td= link_to 'Destroy', speech, method: :delete, data: { confirm: 'Are you sure?' }
