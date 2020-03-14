@@ -1,32 +1,37 @@
 class SpeechesController < ApplicationController
   before_action :set_speech, only: [:show, :edit, :update, :destroy]
 
-  # GET /speeches
-  # GET /speeches.json
   def index
     @speeches = Speech.all
   end
 
-  # GET /speeches/1
-  # GET /speeches/1.json
   def show
   end
 
-  # GET /speeches/new
   def new
     @speech = Speech.new
   end
 
-  # GET /speeches/1/edit
   def edit
   end
 
-  # POST /speeches
-  # POST /speeches.json
   def create
     @speech = Speech.new(speech_params)
 
+    client = Google::Cloud::TextToSpeech.new(version: :v1beta1)
+    synthesis_input = { text: @speech.definition }
+    voice = {language_code: "en-US", name: "en-US-Wavenet-F", ssml_gender: 1}
+    audio_config = {audio_encoding: "LINEAR16", pitch: 0, speaking_rate: 1 }
+    response = client.synthesize_speech synthesis_input, voice, audio_config
+
+    File.open "storage/output.mp3", "wb" do |file|
+      file.write response.audio_content
+    end
+
+    @speech.speech.attach(io: File.open('storage/output.mp3'), filename: 'output.mp3')
+
     respond_to do |format|
+
       if @speech.save
         format.html { redirect_to @speech, notice: 'Speech was successfully created.' }
         format.json { render :show, status: :created, location: @speech }
@@ -37,8 +42,6 @@ class SpeechesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /speeches/1
-  # PATCH/PUT /speeches/1.json
   def update
     respond_to do |format|
       if @speech.update(speech_params)
@@ -51,8 +54,6 @@ class SpeechesController < ApplicationController
     end
   end
 
-  # DELETE /speeches/1
-  # DELETE /speeches/1.json
   def destroy
     @speech.destroy
     respond_to do |format|
@@ -62,13 +63,11 @@ class SpeechesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_speech
       @speech = Speech.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def speech_params
-      params.require(:speech).permit(:term, :definition, :status, :speech)
+      params.require(:speech).permit(:term, :definition, :status)
     end
 end
