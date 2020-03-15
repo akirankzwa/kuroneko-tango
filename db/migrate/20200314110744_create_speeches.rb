@@ -3,7 +3,6 @@ class CreateSpeeches < ActiveRecord::Migration[6.0]
     create_table :speeches do |t|
       t.string :term
       t.text :definition
-      t.string :voice
       t.integer :status
 
       t.timestamps
