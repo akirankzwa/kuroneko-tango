@@ -1,24 +1,17 @@
 %p#notice= notice
-%h1 Speeches
-%table
-  %thead
-    %tr
-      %th Term
-      %th Definition
-      %th Status
-      %th speech
-      %th{:colspan => "3"}
-  %tbody
-    - @speeches.each do |speech|
-      %tr
-        %td= speech.term
-        %td= speech.definition
-        %td= speech.status
-        %td
-          %audio{controls: "", src: "#{rails_blob_path(speech.speech)}"}
 
-        %td= link_to 'Show', speech
-        %td= link_to 'Edit', edit_speech_path(speech)
-        %td= link_to 'Destroy', speech, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= link_to 'New Speech', new_speech_path
+- @speeches.each do |speech|
+  .columns.box
+    .column
+      = speech.term
+    .column
+      = speech.definition
+    .column
+      %div
+        %audio{controls: "", src: "#{rails_blob_path(speech.speech)}"}
+      %div
+        %button.button.is-light.is-small=link_to 'Show', speech
+        %button.button.is-light.is-small= link_to 'Edit', edit_speech_path(speech)
+        %button.button.is-light.is-small= link_to 'Destroy', speech, method: :delete, data: { confirm: 'Are you sure?' }
+
+= link_to 'New Tango', new_speech_path, {class: "button is-info"}
