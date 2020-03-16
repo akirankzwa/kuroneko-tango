@@ -1,0 +1,25 @@
+%h1 Listing flashcards
+
+%table
+  %thead
+    %tr
+      %th Term
+      %th Definition
+      %th Status
+      %th
+      %th
+      %th
+
+  %tbody
+    - @flashcards.each do |flashcard|
+      %tr
+        %td= flashcard.term
+        %td= flashcard.definition
+        %td= flashcard.status
+        %td= link_to 'Show', flashcard
+        %td= link_to 'Edit', edit_flashcard_path(flashcard)
+        %td= link_to 'Destroy', flashcard, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Flashcard', new_flashcard_path

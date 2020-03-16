@@ -1,0 +1,19 @@
+= form_for @flashcard do |f|
+  - if @flashcard.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@flashcard.errors.count, "error")} prohibited this flashcard from being saved:"
+      %ul
+        - @flashcard.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :term
+    = f.text_field :term
+  .field
+    = f.label :definition
+    = f.text_area :definition
+  .field
+    = f.label :status
+    = f.number_field :status
+  .actions
+    = f.submit 'Save'

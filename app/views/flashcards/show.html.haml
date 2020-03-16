@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Term:
+  = @flashcard.term
+%p
+  %b Definition:
+  = @flashcard.definition
+%p
+  %b Status:
+  = @flashcard.status
+
+= link_to 'Edit', edit_flashcard_path(@flashcard)
+\|
+= link_to 'Back', flashcards_path
