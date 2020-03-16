@@ -37,8 +37,10 @@ ActiveRecord::Schema.define(version: 2020_03_16_015434) do
     t.string "term"
     t.text "definition"
     t.integer "status"
+    t.bigint "group_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_flashcards_on_group_id"
   end
 
   create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -51,9 +53,13 @@ ActiveRecord::Schema.define(version: 2020_03_16_015434) do
     t.string "term"
     t.text "definition"
     t.integer "status"
+    t.bigint "group_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_speeches_on_group_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "flashcards", "groups"
+  add_foreign_key "speeches", "groups"
 end
