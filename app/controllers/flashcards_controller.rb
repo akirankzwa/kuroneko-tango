@@ -1,30 +1,35 @@
 class FlashcardsController < ApplicationController
   before_action :set_flashcard, only: [:show, :edit, :update, :destroy]
 
-  # GET /flashcards
-  # GET /flashcards.json
   def index
     @flashcards = Flashcard.all
   end
 
-  # GET /flashcards/1
-  # GET /flashcards/1.json
   def show
   end
 
-  # GET /flashcards/new
   def new
     @flashcard = Flashcard.new
   end
 
-  # GET /flashcards/1/edit
   def edit
   end
 
-  # POST /flashcards
-  # POST /flashcards.json
   def create
     @flashcard = Flashcard.new(flashcard_params)
+
+    client = Google::Cloud::TextToSpeech.new(version: :v1beta1)
+    synthesis_input = { text: @flashcard.definition }
+    voice = {language_code: "en-US", name: "en-US-Wavenet-F", ssml_gender: 1}
+    audio_config = {audio_encoding: "LINEAR16", pitch: 0, speaking_rate: 1 }
+    response = client.synthesize_speech synthesis_input, voice, audio_config
+
+    File.open "storage/output.mp3", "wb" do |file|
+      file.write response.audio_content
+    end
+
+    @flashcard.speech.attach(io: File.open('storage/output.mp3'), filename: 'output.mp3')
+
 
     respond_to do |format|
       if @flashcard.save
@@ -37,8 +42,6 @@ class FlashcardsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /flashcards/1
-  # PATCH/PUT /flashcards/1.json
   def update
     respond_to do |format|
       if @flashcard.update(flashcard_params)
@@ -51,8 +54,6 @@ class FlashcardsController < ApplicationController
     end
   end
 
-  # DELETE /flashcards/1
-  # DELETE /flashcards/1.json
   def destroy
     @flashcard.destroy
     respond_to do |format|
@@ -62,12 +63,10 @@ class FlashcardsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_flashcard
       @flashcard = Flashcard.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def flashcard_params
       params.require(:flashcard).permit(:term, :definition, :status)
     end

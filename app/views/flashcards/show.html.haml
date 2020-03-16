@@ -1,4 +1,6 @@
 %p#notice= notice
+%p
+  %audio{:controls => "", :src => "#{rails_blob_path(@flashcard.speech)}"}
 
 %p
   %b Term:
@@ -11,5 +13,5 @@
   = @flashcard.status
 
 = link_to 'Edit', edit_flashcard_path(@flashcard)
-\|
+|
 = link_to 'Back', flashcards_path

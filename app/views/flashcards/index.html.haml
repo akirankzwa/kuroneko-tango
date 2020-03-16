@@ -1,25 +1,17 @@
-%h1 Listing flashcards
+%p#notice= notice
 
-%table
-  %thead
-    %tr
-      %th Term
-      %th Definition
-      %th Status
-      %th
-      %th
-      %th
+- @flashcards.each do |flashcard|
+  .columns.box
+    .column
+      = flashcard.term
+    .column
+      = flashcard.definition
+    .column
+      %div
+        %audio{controls: "", src: "#{rails_blob_path(flashcard.speech)}"}
+      %div
+        %button.button.is-light.is-small=link_to 'Show', flashcard
+        %button.button.is-light.is-small= link_to 'Edit', edit_flashcard_path(flashcard)
+        %button.button.is-light.is-small= link_to 'Destroy', flashcard, method: :delete, data: { confirm: 'Are you sure?' }
 
-  %tbody
-    - @flashcards.each do |flashcard|
-      %tr
-        %td= flashcard.term
-        %td= flashcard.definition
-        %td= flashcard.status
-        %td= link_to 'Show', flashcard
-        %td= link_to 'Edit', edit_flashcard_path(flashcard)
-        %td= link_to 'Destroy', flashcard, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Flashcard', new_flashcard_path
+= link_to 'New Flashcard', new_flashcard_path, {class: "button is-info"}
