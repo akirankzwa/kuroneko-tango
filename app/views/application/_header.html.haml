@@ -12,7 +12,5 @@
         .navbar-item.has-dropdown.is-hoverable
           %a.navbar-link Create
           .navbar-dropdown
-            %a.navbar-item
-              Group
-            %a.navbar-item
-              Flashcard
+            = link_to 'group', new_group_path, {class: 'navbar-item'}
+            = link_to 'flashcard', new_flashcard_path, {class: 'navbar-item'}
