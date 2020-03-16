@@ -2,21 +2,24 @@ class FlashcardsController < ApplicationController
   before_action :set_flashcard, only: [:show, :edit, :update, :destroy]
 
   def index
-    @flashcards = Flashcard.all
+    @flashcards = Flashcard.all.page(params[:page])
   end
 
   def show
   end
 
   def new
+    @groups = Group.all
     @flashcard = Flashcard.new
   end
 
   def edit
+    @groups = Group.all
   end
 
   def create
     @flashcard = Flashcard.new(flashcard_params)
+    @flashcard.group_id = params[:group]
 
     client = Google::Cloud::TextToSpeech.new(version: :v1beta1)
     synthesis_input = { text: @flashcard.definition }

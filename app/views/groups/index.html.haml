@@ -1,21 +1,16 @@
-%h1 Listing groups
+.columns
+  - @groups.each do |group|
+    .column.is-one-quarter
+      .box
+        %article.media
+          .media-content
+            .field
+              %p.control
+                = group.name
+            .field
+              %p.control
+                %button.button.is-ligh.is-small= link_to 'Show', group
+                %button.button.is-ligh.is-small= link_to 'Edit', edit_group_path(group)
+                %button.button.is-ligh.is-small= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' }
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th
-      %th
-      %th
-
-  %tbody
-    - @groups.each do |group|
-      %tr
-        %td= group.name
-        %td= link_to 'Show', group
-        %td= link_to 'Edit', edit_group_path(group)
-        %td= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Group', new_group_path
+= paginate @groups

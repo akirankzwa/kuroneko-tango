@@ -1,9 +1,14 @@
-%p#notice= notice
+.box
+  %p#notice= notice
 
-%p
-  %b Name:
-  = @group.name
+  .field
+    %label.label Name
+    .control
+      = @group.name
+  .field.is-grouped
+    %p.control
+      = link_to 'Edit', edit_group_path(@group), class: 'button'
+    %p.control
+      = link_to 'Back', groups_path, class: 'button'
 
-= link_to 'Edit', edit_group_path(@group)
-\|
-= link_to 'Back', groups_path
+= render partial: 'flashcards/index', locals: {flashcards: @group.flashcards.page(params[:page])}

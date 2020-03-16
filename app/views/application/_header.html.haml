@@ -1,0 +1,18 @@
+%nav.navbar{role: 'navigation', 'aria-label': 'main navigation'}
+  .navbar-brand
+    %a.navbar-item
+    %a.navbar-burger.burger{role: 'button', 'aria-label': 'menu', 'aria-expand': 'false', 'data-target': 'navbarBasic'}
+      %span{'aria-hidden': 'true'}
+      %span{'aria-hidden': 'true'}
+      %span{'aria-hidden': 'true'}
+    #navbarBasic.navbar-menu
+      .navbar-start
+        = link_to 'Groups', groups_path, class: 'navbar-item'
+        = link_to 'Flashcards', flashcards_path, class: 'navbar-item'
+        .navbar-item.has-dropdown.is-hoverable
+          %a.navbar-link Create
+          .navbar-dropdown
+            %a.navbar-item
+              Group
+            %a.navbar-item
+              Flashcard

@@ -1,17 +1,24 @@
-%p#notice= notice
-%p
-  %audio{:controls => "", :src => "#{rails_blob_path(@flashcard.speech)}"}
+.box
+  %p#notice= notice
 
-%p
-  %b Term:
-  = @flashcard.term
-%p
-  %b Definition:
-  = @flashcard.definition
-%p
-  %b Status:
-  = @flashcard.status
+  .field
+    .control
+      %audio{controls: "", src: "#{rails_blob_path(@flashcard.speech)}"}
 
-= link_to 'Edit', edit_flashcard_path(@flashcard)
-|
-= link_to 'Back', flashcards_path
+  .field
+    %label.label Term
+    .control
+      = @flashcard.term
+  .field
+    %label.label Definition
+    .control
+      = @flashcard.definition
+  .field
+    %label.label Status
+    .conttrol
+      = @flashcard.status
+  .field.is-grouped
+    %p.control
+      = link_to 'Edit', edit_flashcard_path(@flashcard), class: 'button'
+    %p.control
+      = link_to 'Back', flashcards_path, class: 'button'

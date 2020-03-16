@@ -1,21 +1,29 @@
-= form_for @flashcard do |f|
-  - if @flashcard.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@flashcard.errors.count, "error")
-        prohibited this flashcard from being saved:
-      %ul
-        - @flashcard.errors.full_messages.each do |message|
-          %li= message
+.box
+  = form_for @flashcard do |f|
+    - if @flashcard.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@flashcard.errors.count, "error")
+          prohibited this flashcard from being saved:
+        %ul
+          - @flashcard.errors.full_messages.each do |message|
+            %li= message
 
-  .field
-    = f.label :term
-    = f.text_field :term
-  .field
-    = f.label :definition
-    = f.text_area :definition
-  .field
-    = f.label :status
-    = f.number_field :status
-  .actions
-    = f.submit 'Save'
+    .field
+      %label.label Group
+      .control
+        .select
+          = select_tag 'group', options_for_select(@groups.map { |group| [group.name, group.id] }), {class: 'select is-radiusless'}
+    .field
+      %label.label Term
+      .control
+        = f.text_field :term, class: 'input'
+    .field
+      %label.label Definition
+      .control
+        = f.text_area :definition, class: 'textarea'
+    .field.is-grouped
+      %p.control
+        = f.submit 'Save', class: 'button'
+      %p.control
+        = link_to 'Back', flashcards_path, class: 'button'
