@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_16_015434) do
+ActiveRecord::Schema.define(version: 2020_03_14_114845) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -49,17 +49,6 @@ ActiveRecord::Schema.define(version: 2020_03_16_015434) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "speeches", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "term"
-    t.text "definition"
-    t.integer "status"
-    t.bigint "group_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["group_id"], name: "index_speeches_on_group_id"
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "flashcards", "groups"
-  add_foreign_key "speeches", "groups"
 end
