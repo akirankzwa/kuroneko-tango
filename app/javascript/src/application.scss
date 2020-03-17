@@ -1,12 +1,5 @@
 @import "~bulma/bulma";
 
-.outermost-container { margin: 20px; }
-
-.box {
-  border-radius: 0;
-  margin: 1px;
-}
-
 .button { border-radius: 0; }
 .input { border-radius: 0; }
 .textarea { border-radius: 0; }
@@ -14,3 +7,21 @@
 .pagination-next { border-radius: 0; }
 .pagination-previous { border-radius: 0; }
 .navbar-dropdown { border-radius: 0; }
+
+.box {
+  border-radius: 0;
+  margin: 1px;
+}
+
+@media screen and (min-width: 780px) {
+  .outermost-container { margin: 20px; }
+}
+
+@media (pointer:coarse) {
+  .term {
+    font-size: 2rem;
+  }
+  .definition {
+    font-size: 1.2rem;
+  }
+}

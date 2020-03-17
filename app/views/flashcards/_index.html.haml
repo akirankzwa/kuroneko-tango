@@ -1,17 +1,18 @@
 %p#notice= notice
 
 - flashcards.each do |flashcard|
-  .columns.box
-    .column
-      = flashcard.term
-    .column
-      = flashcard.definition
-    .column
-      %div
-        %audio{controls: "", src: "#{rails_blob_path(flashcard.speech)}"}
-      %div
-        %button.button.is-small.is-radiusless= link_to 'Show', flashcard
-        %button.button.is-small.is-radiusless= link_to 'Edit', edit_flashcard_path(flashcard)
-        %button.button.is-small.is-radiusless= link_to 'Destroy', flashcard, method: :delete, data: { confirm: 'Are you sure?' }
+  .box
+    .columns.is-desktop
+      .column.term
+        = flashcard.term
+      .column.definition
+        = flashcard.definition
+      .column
+        %div
+          %audio{controls: "", src: "#{rails_blob_path(flashcard.speech)}"}
+        %div
+          %button.button.is-small.is-radiusless= link_to 'Show', flashcard
+          %button.button.is-small.is-radiusless= link_to 'Edit', edit_flashcard_path(flashcard)
+          %button.button.is-small.is-radiusless= link_to 'Destroy', flashcard, method: :delete, data: { confirm: 'Are you sure?' }
 
 = paginate flashcards
