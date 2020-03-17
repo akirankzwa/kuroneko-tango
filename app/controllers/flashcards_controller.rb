@@ -1,4 +1,5 @@
 class FlashcardsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_flashcard, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -26,13 +27,10 @@ class FlashcardsController < ApplicationController
     voice = {language_code: "en-US", name: "en-US-Wavenet-F", ssml_gender: 1}
     audio_config = {audio_encoding: "LINEAR16", pitch: 0, speaking_rate: 1 }
     response = client.synthesize_speech synthesis_input, voice, audio_config
-
     File.open "storage/output.mp3", "wb" do |file|
       file.write response.audio_content
     end
-
     @flashcard.speech.attach(io: File.open('storage/output.mp3'), filename: 'output.mp3')
-
 
     respond_to do |format|
       if @flashcard.save

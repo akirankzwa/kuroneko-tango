@@ -1,13 +1,27 @@
 import Vue from 'vue/dist/vue.esm'
-import App from '../app.vue'
+
+const axios = require('axios');
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
-    el: '#tangoapp',
+    el: '#flashcardNew',
     data: {
-      message: "Can you say hello?",
-      counter: 0
     },
-    components: { App }
+    methods: {
+      createFlashcard: function(event) {
+        axios.post('/flashcards.json', {
+          term: this.$refs.input.value,
+          definition: this.$refs.textarea.value,
+          group: this.$refs.group.value
+        }).then(function (response) {
+          document.getElementById('a1').value = response['data']['term']
+          document.getElementById('a2').value = response['data']['definition']
+          document.getElementById('a3').src = response['data']['speech']
+        }).catch(function (error) {
+          document.getElementById('a0').textContent = error.response['data']['term']
+        }).then(function () {
+        });
+      }
+    }
   })
 })

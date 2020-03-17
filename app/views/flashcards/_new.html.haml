@@ -1,24 +1,16 @@
-.box
-  = form_for flashcard do |f|
-    - if flashcard.errors.any?
-      #error_explanation
-        %h2
-          = pluralize(flashcard.errors.count, "error")
-          prohibited this flashcard from being saved:
-        %ul
-          - flashcard.errors.full_messages.each do |message|
-            %li= message
-
-    .field
-      %label.label Term
-      .control
-        = f.text_field :term, class: 'input'
-    .field
-      %label.label Definition
-      .control
-        = f.text_area :definition, class: 'textarea'
-    .field.is-grouped
-      %p.control
-        = f.submit 'Save', class: 'button'
-      %p.control
-        = link_to 'Back', flashcards_path, class: 'button'
+.box#flashcardNew
+  .field
+    %label.label
+    .control
+      %input{type: 'hidden', value: "#{group.id}", ref: 'group'}
+  .field
+    %label.label Term
+    .control
+      %input{type: 'text', name: 'term', class: 'input', ref: 'input'}
+  .field
+    %label.label Definition
+    .control
+      %textarea{name: 'definition', class: 'textarea', ref: 'textarea'}
+  .field
+    %p.control
+      %button.button{'v-on:click': 'createFlashcard'} Save

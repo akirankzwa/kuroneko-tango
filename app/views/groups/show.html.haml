@@ -5,3 +5,14 @@
 
 = render partial: 'flashcards/index', locals: {flashcards: @group.flashcards.page(params[:page])}
 = render partial: 'flashcards/new', locals: {flashcard: Flashcard.new, group: @group}
+
+-# TODO
+.field
+  .notification
+    %span#a0
+.field
+  %input#a1.input
+.field
+  %textarea#a2.textarea
+.field
+  %audio#a3{controls: ""}
